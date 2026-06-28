@@ -70,12 +70,29 @@
       };
 
       const fetchStrava = async () => {
-        setLoading(true);
-        setTimeout(() => {
-          setData(mockData);
-          setLoading(false);
-        }, 1500);
-      };
+  setLoading(true);
+  try {
+    const response = await fetch('/api/walks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({})
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch Strava data');
+    }
+
+    const data = await response.json();
+    setData(data);
+  } catch (error) {
+    console.error('Error:', error);
+    alert('Error loading Strava data: ' + error.message);
+  } finally {
+    setLoading(false);
+  }
+};
 
       if (!data) {
         return (
