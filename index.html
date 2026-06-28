@@ -1,203 +1,38 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Walking Journey</title>
-  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #74ACDF 0%, #1C3F75 100%);
-      min-height: 100vh;
-      padding: 20px;
-    }
-    #root {
-      max-width: 1000px;
-      margin: 0 auto;
-    }
-  </style>
-</head>
-<body>
-  <div id="root"></div>
-  
-  <script type="text/babel">
-    const { useState } = React;
-
-    const WalkTracker = () => {
-      const [data, setData] = useState(null);
-      const [loading, setLoading] = useState(false);
-
-      const mockData = {
-        currentStreak: 12,
-        totalDistance: 94.5,
-        lastActivity: {
-          date: '2026-06-27',
-          distance: 7.2,
-          duration: 120,
-          pace: 16.7
-        },
-        dailyData: [
-          { date: 'Jun 16', distance: 5.2 },
-          { date: 'Jun 17', distance: 6.1 },
-          { date: 'Jun 18', distance: 4.8 },
-          { date: 'Jun 19', distance: 7.2 },
-          { date: 'Jun 20', distance: 5.9 },
-          { date: 'Jun 21', distance: 8.3 },
-          { date: 'Jun 22', distance: 6.7 },
-          { date: 'Jun 23', distance: 7.1 },
-          { date: 'Jun 24', distance: 5.4 },
-          { date: 'Jun 25', distance: 8.2 },
-          { date: 'Jun 26', distance: 6.8 },
-          { date: 'Jun 27', distance: 7.2 }
-        ],
-        badges: [
-          { id: 1, name: 'First Steps', description: 'Complete your first walk', unlocked: true, icon: '👣' },
-          { id: 2, name: '5-Day Warrior', description: '5 consecutive days walked', unlocked: true, icon: '⚔️' },
-          { id: 3, name: '10-Day Legend', description: '10 consecutive days walked', unlocked: true, icon: '👑' },
-          { id: 4, name: 'Marathon Master', description: 'Single walk of 26.2 miles', unlocked: true, icon: '🏃' },
-          { id: 5, name: '100 Mile Club', description: 'Walk 100+ miles', unlocked: false, icon: '💯' },
-          { id: 6, name: '14-Day Streak', description: '14 consecutive days walked', unlocked: false, icon: '🔥' },
-          { id: 7, name: 'Twice Daily', description: '2 walks in one day', unlocked: false, icon: '⭐' }
-        ]
-      };
-
-      const fetchStrava = async () => {
-  setLoading(true);
-  try {
-    const response = await fetch('/api/walks', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({})
-    });
-
-    if (!response.ok) {
-      throw new Error('Failed to fetch Strava data');
-    }
-
-    const data = await response.json();
-    setData(data);
-  } catch (error) {
-    console.error('Error:', error);
-    alert('Error loading Strava data: ' + error.message);
-  } finally {
-    setLoading(false);
-  }
+const mockData = {
+  currentStreak: 1,  // Changed from 12
+  totalDistance: 12.4,  // Changed from 94.5
+  lastActivity: {
+    date: '2026-06-27',
+    distance: 0.93,  // Changed from 7.2
+    duration: 1900,  // in seconds
+    pace: 33.8  // minutes per mile
+  },
+  dailyData: [
+    { date: 'Jun 3', distance: 0.33 },
+    { date: 'Jun 4', distance: 0.33 },
+    { date: 'Jun 5', distance: 0.30 },
+    { date: 'Jun 7', distance: 0.36 },
+    { date: 'Jun 8', distance: 1.02 },
+    { date: 'Jun 9', distance: 0.33 },
+    { date: 'Jun 10', distance: 0.36 },
+    { date: 'Jun 11', distance: 0.69 },
+    { date: 'Jun 13', distance: 0.81 },
+    { date: 'Jun 15', distance: 0.59 },
+    { date: 'Jun 16', distance: 0.61 },
+    { date: 'Jun 17', distance: 0.39 },
+    { date: 'Jun 18', distance: 0.59 },
+    { date: 'Jun 23', distance: 0.62 },
+    { date: 'Jun 24', distance: 0.55 },
+    { date: 'Jun 25', distance: 1.00 },
+    { date: 'Jun 27', distance: 0.93 }
+  ],
+  badges: [
+    { id: 1, name: 'First Steps', description: 'Complete your first walk', unlocked: true, icon: '👣' },
+    { id: 2, name: '5-Day Warrior', description: '5 consecutive days walked', unlocked: true, icon: '⚔️' },
+    { id: 3, name: '10-Day Legend', description: '10 consecutive days walked', unlocked: false, icon: '👑' },
+    { id: 4, name: 'Marathon Master', description: 'Single walk of 26.2 miles', unlocked: false, icon: '🏃' },
+    { id: 5, name: '100 Mile Club', description: 'Walk 100+ miles', unlocked: false, icon: '💯' },
+    { id: 6, name: '14-Day Streak', description: '14 consecutive days walked', unlocked: false, icon: '🔥' },
+    { id: 7, name: 'Twice Daily', description: '2 walks in one day', unlocked: true, icon: '⭐' }
+  ]
 };
-
-      if (!data) {
-        return (
-          <div style={{ padding: '2rem', textAlign: 'center', background: '#FFFFFF', borderRadius: '12px', marginTop: '2rem' }}>
-            <h1 style={{ fontSize: '28px', fontWeight: 500, marginBottom: '12px', color: '#1C3F75' }}>Your Walking Journey</h1>
-            <p style={{ fontSize: '16px', color: '#555', marginBottom: '2rem' }}>See your walking progress, streaks, and achievements.</p>
-            <button 
-              onClick={fetchStrava}
-              disabled={loading}
-              style={{
-                padding: '12px 32px',
-                fontSize: '16px',
-                fontWeight: 500,
-                background: '#74ACDF',
-                color: '#FFFFFF',
-                border: 'none',
-                borderRadius: '8px',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                opacity: loading ? 0.6 : 1,
-              }}
-            >
-              {loading ? 'Loading...' : 'Load Dashboard'}
-            </button>
-          </div>
-        );
-      }
-
-      const unlockedCount = data.badges.filter(b => b.unlocked).length;
-      const maxDistance = Math.max(...data.dailyData.map(d => d.distance));
-
-      return (
-        <div style={{ padding: '2rem', background: '#FFFFFF', borderRadius: '12px', marginTop: '2rem' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: 500, color: '#1C3F75', marginBottom: '2rem' }}>Your Walking Dashboard</h1>
-          
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '2rem' }}>
-            <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '2px solid #74ACDF', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>Current Streak</div>
-              <div style={{ fontSize: '32px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{data.currentStreak}</div>
-              <div style={{ fontSize: '12px', color: '#74ACDF' }}>days in a row</div>
-            </div>
-
-            <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '2px solid #74ACDF', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>Total Distance</div>
-              <div style={{ fontSize: '32px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{data.totalDistance.toFixed(1)}</div>
-              <div style={{ fontSize: '12px', color: '#74ACDF' }}>miles since Jun 1</div>
-            </div>
-
-            <div style={{ background: '#FFF8F0', padding: '1.5rem', borderRadius: '12px', border: '2px solid #CBA135', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>To 100 Miles</div>
-              <div style={{ fontSize: '28px', fontWeight: 500, color: '#CBA135', marginBottom: '4px' }}>5.5</div>
-              <div style={{ fontSize: '12px', color: '#CBA135' }}>miles away</div>
-            </div>
-          </div>
-
-          <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Daily distance trend</h2>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '200px' }}>
-              {data.dailyData.map((day, idx) => (
-                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-                  <div style={{ fontSize: '11px', color: '#1C3F75', fontWeight: 600, marginBottom: '4px' }}>{day.distance}</div>
-                  <div style={{ background: '#74ACDF', width: '100%', height: `${(day.distance / maxDistance) * 160}px`, borderRadius: '4px' }}></div>
-                  <div style={{ fontSize: '10px', color: '#74ACDF', marginTop: '8px', fontWeight: 500 }}>{day.date.split(' ')[1]}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Badges earned</h2>
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}>
-              {data.badges.map(badge => (
-                <div 
-                  key={badge.id}
-                  style={{
-                    padding: '1.25rem',
-                    borderRadius: '12px',
-                    border: badge.unlocked ? '2px solid #CBA135' : '1px solid #E0E0E0',
-                    background: badge.unlocked ? '#FFF8F0' : '#F5F5F5',
-                    textAlign: 'center',
-                    opacity: badge.unlocked ? 1 : 0.5
-                  }}
-                >
-                  <div style={{ fontSize: '32px', marginBottom: '8px' }}>{badge.icon}</div>
-                  <div style={{ fontSize: '13px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{badge.name}</div>
-                  <div style={{ fontSize: '11px', color: '#555', lineHeight: 1.3 }}>{badge.description}</div>
-                  {badge.unlocked && (
-                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#CBA135', fontWeight: 600 }}>✓ Unlocked</div>
-                  )}
-                </div>
-              ))}
-            </div>
-            <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#FFF8F0', borderRadius: '8px', textAlign: 'center', border: '1px solid #CBA135' }}>
-              <div style={{ fontSize: '14px', color: '#1C3F75', fontWeight: 500 }}>{unlockedCount} of {data.badges.length} badges unlocked</div>
-            </div>
-          </div>
-
-          <div style={{ padding: '1.5rem', background: '#F0F7FF', borderRadius: '12px', border: '1px solid #74ACDF' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 500, color: '#1C3F75', marginBottom: '12px' }}>Walking insights</h3>
-            <p style={{ fontSize: '14px', color: '#1C3F75', lineHeight: 1.6 }}>You're on an impressive 12-day streak! You've walked 94.5 miles since June 1st, averaging 7.9 miles per day. Keep this momentum going—you're just 5.5 miles away from hitting the century mark. Your recent walks show great consistency with distances between 5-8 miles. Consider mixing in one longer walk to unlock the Marathon Master badge!</p>
-          </div>
-        </div>
-      );
-    };
-
-    ReactDOM.render(<WalkTracker />, document.getElementById('root'));
-  </script>
-</body>
-</html>
