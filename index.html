@@ -102,18 +102,15 @@
             </div>
           </div>
 
-          <div style={{ background: '#F0F7FF', padding: '1rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
+          <div style={{ background: '#F0F7FF', padding: '1rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem', overflowX: 'auto' }}>
             <h2 style={{ fontSize: '16px', fontWeight: 500, color: '#1C3F75', marginBottom: '1rem' }}>Daily Distance Trend</h2>
             <div style={{ 
               display: 'flex', 
               alignItems: 'flex-end', 
-              gap: '1px', 
-              height: '120px',
-              width: '100%',
-              overflowX: 'auto',
-              WebkitOverflowScrolling: 'touch',
-              scrollBehavior: 'smooth',
-              paddingBottom: '8px'
+              gap: '3px', 
+              height: '180px',
+              minWidth: 'min-content',
+              paddingRight: '1rem'
             }}>
               {data.dailyData.map((day, idx) => (
                 <div key={idx} style={{ 
@@ -121,37 +118,35 @@
                   flexDirection: 'column', 
                   alignItems: 'center', 
                   flex: '0 0 auto',
-                  minWidth: '24px'
+                  minWidth: '28px'
                 }}>
                   <div style={{ 
                     fontSize: '7px', 
                     color: '#1C3F75', 
                     fontWeight: 600, 
-                    marginBottom: '1px',
-                    height: '10px',
-                    minHeight: '10px',
-                    display: 'flex',
-                    alignItems: 'center'
+                    marginBottom: '2px',
+                    height: '12px',
+                    textAlign: 'center',
+                    width: '100%'
                   }}>
-                    {idx % 2 === 0 ? day.distance : ''}
+                    {day.distance}
                   </div>
                   <div style={{ 
                     background: '#74ACDF', 
-                    width: '14px', 
-                    height: `${(day.distance / maxDistance) * 100}px`,
-                    minHeight: '4px',
+                    width: '16px', 
+                    height: `${(day.distance / maxDistance) * 140}px`,
+                    minHeight: '6px',
                     borderRadius: '2px'
                   }}></div>
                   <div style={{ 
                     fontSize: '7px', 
                     color: '#74ACDF', 
-                    marginTop: '2px', 
+                    marginTop: '4px', 
                     fontWeight: 500,
-                    height: '10px',
-                    display: 'flex',
-                    alignItems: 'center'
+                    textAlign: 'center',
+                    width: '100%'
                   }}>
-                    {idx % 2 === 0 ? day.date.split(' ')[1] : ''}
+                    {day.date.split(' ')[1]}
                   </div>
                 </div>
               ))}
