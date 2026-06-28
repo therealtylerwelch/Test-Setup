@@ -102,14 +102,57 @@
             </div>
           </div>
 
-          <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Daily Distance Trend</h2>
-            <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-around', gap: '2px', height: '200px', width: '100%' }}>
+          <div style={{ background: '#F0F7FF', padding: '1rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '16px', fontWeight: 500, color: '#1C3F75', marginBottom: '1rem' }}>Daily Distance Trend</h2>
+            <div style={{ 
+              display: 'flex', 
+              alignItems: 'flex-end', 
+              gap: '1px', 
+              height: '120px',
+              width: '100%',
+              overflowX: 'auto',
+              WebkitOverflowScrolling: 'touch',
+              scrollBehavior: 'smooth',
+              paddingBottom: '8px'
+            }}>
               {data.dailyData.map((day, idx) => (
-                <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1, minWidth: '20px' }}>
-                  <div style={{ fontSize: '8px', color: '#1C3F75', fontWeight: 600, marginBottom: '2px', height: '14px', minHeight: '14px' }}>{day.distance}</div>
-                  <div style={{ background: '#74ACDF', width: '100%', maxWidth: '16px', height: `${(day.distance / maxDistance) * 160}px`, borderRadius: '2px', flexGrow: 0 }}></div>
-                  <div style={{ fontSize: '8px', color: '#74ACDF', marginTop: '4px', fontWeight: 500 }}>{day.date.split(' ')[1]}</div>
+                <div key={idx} style={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center', 
+                  flex: '0 0 auto',
+                  minWidth: '24px'
+                }}>
+                  <div style={{ 
+                    fontSize: '7px', 
+                    color: '#1C3F75', 
+                    fontWeight: 600, 
+                    marginBottom: '1px',
+                    height: '10px',
+                    minHeight: '10px',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}>
+                    {idx % 2 === 0 ? day.distance : ''}
+                  </div>
+                  <div style={{ 
+                    background: '#74ACDF', 
+                    width: '14px', 
+                    height: `${(day.distance / maxDistance) * 100}px`,
+                    minHeight: '4px',
+                    borderRadius: '2px'
+                  }}></div>
+                  <div style={{ 
+                    fontSize: '7px', 
+                    color: '#74ACDF', 
+                    marginTop: '2px', 
+                    fontWeight: 500,
+                    height: '10px',
+                    display: 'flex',
+                    alignItems: 'center'
+                  }}>
+                    {idx % 2 === 0 ? day.date.split(' ')[1] : ''}
+                  </div>
                 </div>
               ))}
             </div>
