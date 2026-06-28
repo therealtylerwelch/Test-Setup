@@ -1,0 +1,9 @@
+{
+  "name": "test-setup",
+  "version": "1.0.0",
+  "description": "My first Claude app",
+  "main": "api/claude.js",
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.28.0"
+  }
+}
