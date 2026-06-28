@@ -1,188 +1,191 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claude AI App</title>
+  <title>Your Walking Journey</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/recharts/2.8.0/Recharts.js"></script>
   <style>
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
       padding: 20px;
     }
-
-    .container {
-      background: white;
-      padding: 40px;
-      border-radius: 12px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      max-width: 600px;
-      width: 100%;
-    }
-
-    h1 {
-      font-size: 32px;
-      color: #333;
-      margin-bottom: 20px;
-      text-align: center;
-    }
-
-    .input-group {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 30px;
-    }
-
-    input {
-      flex: 1;
-      padding: 12px;
-      border: 2px solid #e0e0e0;
-      border-radius: 8px;
-      font-size: 16px;
-      transition: border-color 0.2s;
-    }
-
-    input:focus {
-      outline: none;
-      border-color: #667eea;
-    }
-
-    button {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-      color: white;
-      padding: 12px 30px;
-      border: none;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    button:disabled {
-      opacity: 0.6;
-      cursor: not-allowed;
-      transform: scale(1);
-    }
-
-    .response-box {
-      background: #f5f5f5;
-      padding: 20px;
-      border-radius: 8px;
-      margin-top: 20px;
-      min-height: 60px;
-      display: none;
-    }
-
-    .response-box.show {
-      display: block;
-    }
-
-    .response-box p {
-      color: #333;
-      line-height: 1.6;
-      margin: 0;
-    }
-
-    .loading {
-      color: #667eea;
-      font-style: italic;
+    #root {
+      max-width: 1000px;
+      margin: 0 auto;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Chat with Claude</h1>
-    
-    <div class="input-group">
-      <input 
-        type="text" 
-        id="messageInput" 
-        placeholder="Ask Claude anything..."
-        autocomplete="off"
-      >
-      <button id="sendButton">Send</button>
-    </div>
+  <div id="root"></div>
+  
+  <script type="text/babel">
+    const { useState } = React;
+    const { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } = Recharts;
 
-    <div id="responseBox" class="response-box">
-      <p id="responseText"></p>
-    </div>
-  </div>
+    const WalkTracker = () => {
+      const [data, setData] = useState(null);
+      const [loading, setLoading] = useState(false);
+      const [error, setError] = useState(null);
 
-  <script>
-    const messageInput = document.getElementById('messageInput');
-    const sendButton = document.getElementById('sendButton');
-    const responseBox = document.getElementById('responseBox');
-    const responseText = document.getElementById('responseText');
+      const mockData = {
+        currentStreak: 12,
+        totalDistance: 94.5,
+        lastActivity: {
+          date: '2026-06-27',
+          distance: 7.2,
+          duration: 120,
+          pace: 16.7
+        },
+        dailyData: [
+          { date: 'Jun 16', distance: 5.2 },
+          { date: 'Jun 17', distance: 6.1 },
+          { date: 'Jun 18', distance: 4.8 },
+          { date: 'Jun 19', distance: 7.2 },
+          { date: 'Jun 20', distance: 5.9 },
+          { date: 'Jun 21', distance: 8.3 },
+          { date: 'Jun 22', distance: 6.7 },
+          { date: 'Jun 23', distance: 7.1 },
+          { date: 'Jun 24', distance: 5.4 },
+          { date: 'Jun 25', distance: 8.2 },
+          { date: 'Jun 26', distance: 6.8 },
+          { date: 'Jun 27', distance: 7.2 }
+        ],
+        badges: [
+          { id: 1, name: 'First Steps', description: 'Complete your first walk', unlocked: true, icon: '👣' },
+          { id: 2, name: '5-Day Warrior', description: '5 consecutive days walked', unlocked: true, icon: '⚔️' },
+          { id: 3, name: '10-Day Legend', description: '10 consecutive days walked', unlocked: true, icon: '👑' },
+          { id: 4, name: 'Distance Master', description: 'Walk 50+ miles', unlocked: true, icon: '🎯' },
+          { id: 5, name: 'Marathon Mile', description: 'Single walk of 10+ miles', unlocked: true, icon: '🏃' },
+          { id: 6, name: 'Century Club', description: 'Walk 100+ miles', unlocked: false, icon: '💯' },
+          { id: 7, name: 'Consistency King', description: '30-day streak', unlocked: false, icon: '👸' },
+          { id: 8, name: 'Twice Daily', description: '2 walks in one day', unlocked: false, icon: '🔥' }
+        ]
+      };
 
-    // Send message when clicking button
-    sendButton.addEventListener('click', sendMessage);
-
-    // Send message when pressing Enter
-    messageInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        sendMessage();
-      }
-    });
-
-    async function sendMessage() {
-      const message = messageInput.value.trim();
-
-      if (!message) {
-        alert('Please type something!');
-        return;
-      }
-
-      // Show loading state
-      sendButton.disabled = true;
-      responseBox.classList.add('show');
-      responseText.textContent = 'Thinking...';
-      responseText.classList.add('loading');
-
-      try {
-        // Send message to your serverless function
-        const response = await fetch('/api/claude', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ message })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-          throw new Error(data.error || 'Something went wrong');
+      const fetchStrava = async () => {
+        setLoading(true);
+        setError(null);
+        try {
+          setTimeout(() => {
+            setData(mockData);
+            setLoading(false);
+          }, 1500);
+        } catch (err) {
+          setError('Failed to load Strava data');
+          setLoading(false);
         }
+      };
 
-        // Show Claude's response
-        responseText.textContent = data.reply;
-        responseText.classList.remove('loading');
-
-        // Clear input
-        messageInput.value = '';
-        messageInput.focus();
-
-      } catch (error) {
-        responseText.textContent = `Error: ${error.message}`;
-        responseText.classList.remove('loading');
-      } finally {
-        sendButton.disabled = false;
+      if (!data) {
+        return (
+          <div style={{ padding: '2rem', textAlign: 'center', background: 'white', borderRadius: '12px', marginTop: '2rem' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 500, marginBottom: '12px', color: '#333' }}>Your Walking Journey</h1>
+            <p style={{ fontSize: '16px', color: '#666', marginBottom: '2rem' }}>See your walking progress, streaks, and achievements.</p>
+            <button 
+              onClick={fetchStrava}
+              disabled={loading}
+              style={{
+                padding: '12px 32px',
+                fontSize: '16px',
+                fontWeight: 500,
+                background: '#667eea',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: loading ? 'not-allowed' : 'pointer',
+                opacity: loading ? 0.6 : 1,
+                transition: 'all 0.2s'
+              }}
+            >
+              {loading ? 'Loading...' : 'Load Dashboard'}
+            </button>
+            {error && <p style={{ color: '#d32f2f', marginTop: '1rem' }}>{error}</p>}
+          </div>
+        );
       }
-    }
+
+      const unlockedCount = data.badges.filter(b => b.unlocked).length;
+
+      return (
+        <div style={{ padding: '2rem', background: 'white', borderRadius: '12px', marginTop: '2rem' }}>
+          <div style={{ marginBottom: '2rem' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 500, color: '#333', marginBottom: '1.5rem' }}>Your Walking Dashboard</h1>
+            
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '2rem' }}>
+              <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
+                <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>Current Streak</div>
+                <div style={{ fontSize: '32px', fontWeight: 500, color: '#667eea', marginBottom: '4px' }}>{data.currentStreak}</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>days in a row</div>
+              </div>
+
+              <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
+                <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>Total Distance</div>
+                <div style={{ fontSize: '32px', fontWeight: 500, color: '#333', marginBottom: '4px' }}>{data.totalDistance.toFixed(1)}</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>miles since Jun 1</div>
+              </div>
+
+              <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
+                <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>To 100 Miles</div>
+                <div style={{ fontSize: '28px', fontWeight: 500, color: '#667eea', marginBottom: '4px' }}>5.5</div>
+                <div style={{ fontSize: '12px', color: '#999' }}>miles away</div>
+              </div>
+            </div>
+          </div>
+
+          <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#333', marginBottom: '1.5rem' }}>Daily distance trend</h2>
+            <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.6 }}>Chart visualization. Your walking shows consistent daily distances ranging from 4.8 to 8.3 miles over the past 12 days.</p>
+          </div>
+
+          <div style={{ marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#333', marginBottom: '1.5rem' }}>Badges earned</h2>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}>
+              {data.badges.map(badge => (
+                <div 
+                  key={badge.id}
+                  style={{
+                    padding: '1.25rem',
+                    borderRadius: '12px',
+                    border: '1px solid #e0e0e0',
+                    background: badge.unlocked ? '#f5f5f5' : '#fafafa',
+                    textAlign: 'center',
+                    opacity: badge.unlocked ? 1 : 0.5
+                  }}
+                >
+                  <div style={{ fontSize: '32px', marginBottom: '8px' }}>{badge.icon}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 500, color: '#333', marginBottom: '4px' }}>{badge.name}</div>
+                  <div style={{ fontSize: '11px', color: '#666', lineHeight: 1.3 }}>{badge.description}</div>
+                  {badge.unlocked && (
+                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#667eea', fontWeight: 500 }}>✓ Unlocked</div>
+                  )}
+                </div>
+              ))}
+            </div>
+            <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#e8eef9', borderRadius: '8px', textAlign: 'center' }}>
+              <div style={{ fontSize: '14px', color: '#667eea', fontWeight: 500 }}>{unlockedCount} of {data.badges.length} badges unlocked</div>
+            </div>
+          </div>
+
+          <div style={{ padding: '1.5rem', background: '#f5f5f5', borderRadius: '12px', border: '1px solid #e0e0e0' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 500, color: '#333', marginBottom: '12px' }}>Claude's insight</h3>
+            <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.6 }}>You're on an impressive 12-day streak! You've walked 94.5 miles since June 1st, averaging 7.9 miles per day. Keep this momentum going—you're just 5.5 miles away from hitting the century mark. Your recent walks show great consistency with distances between 5-8 miles. Consider mixing in one longer walk to unlock the Marathon Mile badge!</p>
+          </div>
+        </div>
+      );
+    };
+
+    ReactDOM.render(<WalkTracker />, document.getElementById('root'));
   </script>
 </body>
 </html>
