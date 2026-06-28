@@ -15,7 +15,7 @@
     }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      background: linear-gradient(135deg, #74ACDF 0%, #1C3F75 100%);
       min-height: 100vh;
       padding: 20px;
     }
@@ -62,11 +62,10 @@
           { id: 1, name: 'First Steps', description: 'Complete your first walk', unlocked: true, icon: '👣' },
           { id: 2, name: '5-Day Warrior', description: '5 consecutive days walked', unlocked: true, icon: '⚔️' },
           { id: 3, name: '10-Day Legend', description: '10 consecutive days walked', unlocked: true, icon: '👑' },
-          { id: 4, name: 'Distance Master', description: 'Walk 50+ miles', unlocked: true, icon: '🎯' },
-          { id: 5, name: 'Marathon Mile', description: 'Single walk of 10+ miles', unlocked: true, icon: '🏃' },
-          { id: 6, name: 'Century Club', description: 'Walk 100+ miles', unlocked: false, icon: '💯' },
-          { id: 7, name: 'Consistency King', description: '30-day streak', unlocked: false, icon: '👸' },
-          { id: 8, name: 'Twice Daily', description: '2 walks in one day', unlocked: false, icon: '🔥' }
+          { id: 4, name: 'Marathon Master', description: 'Single walk of 26.2 miles', unlocked: true, icon: '🏃' },
+          { id: 5, name: '100 Mile Club', description: 'Walk 100+ miles', unlocked: false, icon: '💯' },
+          { id: 6, name: '14-Day Streak', description: '14 consecutive days walked', unlocked: false, icon: '🔥' },
+          { id: 7, name: 'Twice Daily', description: '2 walks in one day', unlocked: false, icon: '⭐' }
         ]
       };
 
@@ -80,9 +79,9 @@
 
       if (!data) {
         return (
-          <div style={{ padding: '2rem', textAlign: 'center', background: 'white', borderRadius: '12px', marginTop: '2rem' }}>
-            <h1 style={{ fontSize: '28px', fontWeight: 500, marginBottom: '12px', color: '#333' }}>Your Walking Journey</h1>
-            <p style={{ fontSize: '16px', color: '#666', marginBottom: '2rem' }}>See your walking progress, streaks, and achievements.</p>
+          <div style={{ padding: '2rem', textAlign: 'center', background: '#FFFFFF', borderRadius: '12px', marginTop: '2rem' }}>
+            <h1 style={{ fontSize: '28px', fontWeight: 500, marginBottom: '12px', color: '#1C3F75' }}>Your Walking Journey</h1>
+            <p style={{ fontSize: '16px', color: '#555', marginBottom: '2rem' }}>See your walking progress, streaks, and achievements.</p>
             <button 
               onClick={fetchStrava}
               disabled={loading}
@@ -90,8 +89,8 @@
                 padding: '12px 32px',
                 fontSize: '16px',
                 fontWeight: 500,
-                background: '#667eea',
-                color: 'white',
+                background: '#74ACDF',
+                color: '#FFFFFF',
                 border: 'none',
                 borderRadius: '8px',
                 cursor: loading ? 'not-allowed' : 'pointer',
@@ -108,44 +107,44 @@
       const maxDistance = Math.max(...data.dailyData.map(d => d.distance));
 
       return (
-        <div style={{ padding: '2rem', background: 'white', borderRadius: '12px', marginTop: '2rem' }}>
-          <h1 style={{ fontSize: '28px', fontWeight: 500, color: '#333', marginBottom: '2rem' }}>Your Walking Dashboard</h1>
+        <div style={{ padding: '2rem', background: '#FFFFFF', borderRadius: '12px', marginTop: '2rem' }}>
+          <h1 style={{ fontSize: '28px', fontWeight: 500, color: '#1C3F75', marginBottom: '2rem' }}>Your Walking Dashboard</h1>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '2rem' }}>
-            <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>Current Streak</div>
-              <div style={{ fontSize: '32px', fontWeight: 500, color: '#667eea', marginBottom: '4px' }}>{data.currentStreak}</div>
-              <div style={{ fontSize: '12px', color: '#999' }}>days in a row</div>
+            <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '2px solid #74ACDF', textAlign: 'center' }}>
+              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>Current Streak</div>
+              <div style={{ fontSize: '32px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{data.currentStreak}</div>
+              <div style={{ fontSize: '12px', color: '#74ACDF' }}>days in a row</div>
             </div>
 
-            <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>Total Distance</div>
-              <div style={{ fontSize: '32px', fontWeight: 500, color: '#333', marginBottom: '4px' }}>{data.totalDistance.toFixed(1)}</div>
-              <div style={{ fontSize: '12px', color: '#999' }}>miles since Jun 1</div>
+            <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '2px solid #74ACDF', textAlign: 'center' }}>
+              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>Total Distance</div>
+              <div style={{ fontSize: '32px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{data.totalDistance.toFixed(1)}</div>
+              <div style={{ fontSize: '12px', color: '#74ACDF' }}>miles since Jun 1</div>
             </div>
 
-            <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', textAlign: 'center' }}>
-              <div style={{ fontSize: '13px', color: '#666', marginBottom: '8px' }}>To 100 Miles</div>
-              <div style={{ fontSize: '28px', fontWeight: 500, color: '#667eea', marginBottom: '4px' }}>5.5</div>
-              <div style={{ fontSize: '12px', color: '#999' }}>miles away</div>
+            <div style={{ background: '#FFF8F0', padding: '1.5rem', borderRadius: '12px', border: '2px solid #CBA135', textAlign: 'center' }}>
+              <div style={{ fontSize: '13px', color: '#1C3F75', marginBottom: '8px', fontWeight: 500 }}>To 100 Miles</div>
+              <div style={{ fontSize: '28px', fontWeight: 500, color: '#CBA135', marginBottom: '4px' }}>5.5</div>
+              <div style={{ fontSize: '12px', color: '#CBA135' }}>miles away</div>
             </div>
           </div>
 
-          <div style={{ background: '#f5f5f5', padding: '1.5rem', borderRadius: '12px', border: '1px solid #e0e0e0', marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#333', marginBottom: '1.5rem' }}>Daily distance trend</h2>
+          <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Daily distance trend</h2>
             <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '200px' }}>
               {data.dailyData.map((day, idx) => (
                 <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: 1 }}>
-                  <div style={{ fontSize: '11px', color: '#667eea', fontWeight: 500, marginBottom: '4px' }}>{day.distance}</div>
-                  <div style={{ background: '#667eea', width: '100%', height: `${(day.distance / maxDistance) * 160}px`, borderRadius: '4px' }}></div>
-                  <div style={{ fontSize: '10px', color: '#999', marginTop: '8px' }}>{day.date.split(' ')[1]}</div>
+                  <div style={{ fontSize: '11px', color: '#1C3F75', fontWeight: 600, marginBottom: '4px' }}>{day.distance}</div>
+                  <div style={{ background: '#74ACDF', width: '100%', height: `${(day.distance / maxDistance) * 160}px`, borderRadius: '4px' }}></div>
+                  <div style={{ fontSize: '10px', color: '#74ACDF', marginTop: '8px', fontWeight: 500 }}>{day.date.split(' ')[1]}</div>
                 </div>
               ))}
             </div>
           </div>
 
           <div style={{ marginBottom: '2rem' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#333', marginBottom: '1.5rem' }}>Badges earned</h2>
+            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Badges earned</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(140px, 1fr))', gap: '12px' }}>
               {data.badges.map(badge => (
                 <div 
@@ -153,29 +152,29 @@
                   style={{
                     padding: '1.25rem',
                     borderRadius: '12px',
-                    border: '1px solid #e0e0e0',
-                    background: badge.unlocked ? '#f5f5f5' : '#fafafa',
+                    border: badge.unlocked ? '2px solid #CBA135' : '1px solid #E0E0E0',
+                    background: badge.unlocked ? '#FFF8F0' : '#F5F5F5',
                     textAlign: 'center',
                     opacity: badge.unlocked ? 1 : 0.5
                   }}
                 >
                   <div style={{ fontSize: '32px', marginBottom: '8px' }}>{badge.icon}</div>
-                  <div style={{ fontSize: '13px', fontWeight: 500, color: '#333', marginBottom: '4px' }}>{badge.name}</div>
-                  <div style={{ fontSize: '11px', color: '#666', lineHeight: 1.3 }}>{badge.description}</div>
+                  <div style={{ fontSize: '13px', fontWeight: 500, color: '#1C3F75', marginBottom: '4px' }}>{badge.name}</div>
+                  <div style={{ fontSize: '11px', color: '#555', lineHeight: 1.3 }}>{badge.description}</div>
                   {badge.unlocked && (
-                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#667eea', fontWeight: 500 }}>✓ Unlocked</div>
+                    <div style={{ marginTop: '8px', fontSize: '12px', color: '#CBA135', fontWeight: 600 }}>✓ Unlocked</div>
                   )}
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#e8eef9', borderRadius: '8px', textAlign: 'center' }}>
-              <div style={{ fontSize: '14px', color: '#667eea', fontWeight: 500 }}>{unlockedCount} of {data.badges.length} badges unlocked</div>
+            <div style={{ marginTop: '1.5rem', padding: '1rem', background: '#FFF8F0', borderRadius: '8px', textAlign: 'center', border: '1px solid #CBA135' }}>
+              <div style={{ fontSize: '14px', color: '#1C3F75', fontWeight: 500 }}>{unlockedCount} of {data.badges.length} badges unlocked</div>
             </div>
           </div>
 
-          <div style={{ padding: '1.5rem', background: '#f5f5f5', borderRadius: '12px', border: '1px solid #e0e0e0' }}>
-            <h3 style={{ fontSize: '16px', fontWeight: 500, color: '#333', marginBottom: '12px' }}>Claude's insight</h3>
-            <p style={{ fontSize: '14px', color: '#666', lineHeight: 1.6 }}>You're on an impressive 12-day streak! You've walked 94.5 miles since June 1st, averaging 7.9 miles per day. Keep this momentum going—you're just 5.5 miles away from hitting the century mark. Your recent walks show great consistency with distances between 5-8 miles. Consider mixing in one longer walk to unlock the Marathon Mile badge!</p>
+          <div style={{ padding: '1.5rem', background: '#F0F7FF', borderRadius: '12px', border: '1px solid #74ACDF' }}>
+            <h3 style={{ fontSize: '16px', fontWeight: 500, color: '#1C3F75', marginBottom: '12px' }}>Walking insights</h3>
+            <p style={{ fontSize: '14px', color: '#1C3F75', lineHeight: 1.6 }}>You're on an impressive 12-day streak! You've walked 94.5 miles since June 1st, averaging 7.9 miles per day. Keep this momentum going—you're just 5.5 miles away from hitting the century mark. Your recent walks show great consistency with distances between 5-8 miles. Consider mixing in one longer walk to unlock the Marathon Master badge!</p>
           </div>
         </div>
       );
