@@ -19,7 +19,7 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="MyRecoverySteps">
-  <meta name="theme-color" content="#163d7a">
+  <meta name="theme-color" content="#74ACDF">
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -29,10 +29,11 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Segoe UI', Roboto, sans-serif;
       background:
-        radial-gradient(ellipse 90% 70% at 5% 35%, rgba(116, 172, 223, 0.65) 0%, transparent 55%),
-        radial-gradient(ellipse 60% 80% at 92% 8%,  rgba(74, 144, 226, 0.45) 0%, transparent 50%),
-        radial-gradient(ellipse 75% 55% at 55% 95%, rgba(14, 42, 90, 0.95)   0%, transparent 65%),
-        linear-gradient(155deg, #0d1f3c 0%, #163d7a 35%, #2563ab 65%, #5a9fd4 100%);
+        radial-gradient(ellipse 110% 20% at 50% 44%, rgba(255,255,255,0.16)   0%, transparent 100%),
+        radial-gradient(ellipse 80%  60% at 8%  30%, rgba(116,172,223,0.55)   0%, transparent 55%),
+        radial-gradient(ellipse 55%  70% at 90% 10%, rgba(100,165,220,0.40)   0%, transparent 50%),
+        radial-gradient(ellipse 70%  50% at 50% 90%, rgba(10, 40, 85, 0.90)   0%, transparent 65%),
+        linear-gradient(155deg, #0f3d6b 0%, #1a6cb5 30%, #3b8fd4 65%, #74ACDF 100%);
       min-height: 100vh;
       padding: clamp(16px, 5vw, 44px) clamp(12px, 4vw, 32px);
     }
@@ -76,14 +77,14 @@
     }
 
     .glass-gold {
-      background: rgba(203, 161, 53, 0.16);
+      background: rgba(246, 180, 14, 0.14);
       backdrop-filter: blur(24px) saturate(155%);
       -webkit-backdrop-filter: blur(24px) saturate(155%);
-      border: 1px solid rgba(203, 161, 53, 0.36);
+      border: 1px solid rgba(246, 180, 14, 0.34);
       border-radius: 20px;
       box-shadow:
-        0 4px 20px rgba(203, 161, 53, 0.14),
-        0 0 28px  rgba(203, 161, 53, 0.08),
+        0 4px 20px rgba(246, 180, 14, 0.12),
+        0 0 28px  rgba(246, 180, 14, 0.07),
         inset 0 1.5px 0 rgba(255, 255, 255, 0.30);
     }
 
@@ -97,13 +98,13 @@
     /* ── Chart bar ── */
     .bar {
       background: linear-gradient(to top,
-        rgba(74, 144, 226, 0.55) 0%,
-        rgba(160, 210, 250, 0.90) 100%);
+        rgba(100, 165, 220, 0.60) 0%,
+        rgba(200, 232, 255, 0.92) 100%);
       border: 1px solid rgba(255, 255, 255, 0.30);
       border-radius: 5px 5px 3px 3px;
       box-shadow:
-        0 2px 10px rgba(116, 172, 223, 0.45),
-        inset 0 1px 0  rgba(255, 255, 255, 0.55);
+        0 2px 10px rgba(116, 172, 223, 0.50),
+        inset 0 1px 0  rgba(255, 255, 255, 0.60);
     }
 
     /* ── Responsive grids ── */
@@ -157,7 +158,7 @@
     /* ── Badge glow ── */
     .badge-glow {
       box-shadow:
-        0 6px 24px rgba(203, 161, 53, 0.22),
+        0 6px 24px rgba(246, 180, 14, 0.22),
         inset 0 1.5px 0 rgba(255, 255, 255, 0.35);
     }
   </style>
@@ -167,10 +168,10 @@
 
   <script type="text/babel">
     const W  = (a) => `rgba(255,255,255,${a})`;
-    const GOLD = '#CBA135';
-    const GOLD_LIGHT = '#F2D882';
-    const BLUE_LIGHT = 'rgba(185, 222, 255, 0.95)';
-    const BLUE_MID   = 'rgba(116, 172, 223, 0.80)';
+    const GOLD       = '#F6B40E';
+    const GOLD_LIGHT = '#FBDA6A';
+    const BLUE_LIGHT = 'rgba(200, 232, 255, 0.95)';
+    const BLUE_MID   = 'rgba(116, 172, 223, 0.85)';
 
     const StatCard = ({ label, value, unit, variant }) => {
       const isGold = variant === 'gold';
@@ -269,8 +270,8 @@
                 height: '100%',
                 width: `${pct}%`,
                 borderRadius: '100px',
-                background: `linear-gradient(90deg, rgba(116,172,223,0.8) 0%, rgba(203,161,53,0.9) 100%)`,
-                boxShadow: '0 0 12px rgba(203,161,53,0.4)',
+                background: `linear-gradient(90deg, rgba(116,172,223,0.85) 0%, rgba(246,180,14,0.92) 100%)`,
+                boxShadow: '0 0 14px rgba(246,180,14,0.45)',
                 transition: 'width 0.6s ease'
               }} />
             </div>
