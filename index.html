@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Your Walking Journey</title>
+  <title>MyRecoverySteps</title>
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -113,7 +113,8 @@
 
       return (
         <div style={{ padding: 'clamp(1rem, 5vw, 2rem)', background: '#FFFFFF', borderRadius: '12px', marginTop: '2rem' }}>
-          <h1 style={{ fontSize: 'clamp(22px, 6vw, 28px)', fontWeight: 500, color: '#1C3F75', marginBottom: '2rem' }}>Your Walking Dashboard</h1>
+          <h1 style={{ fontSize: 'clamp(22px, 6vw, 28px)', fontWeight: 500, color: '#1C3F75', marginBottom: '0.5rem' }}>My Recovery Steps BETA</h1>
+          <p style={{ fontSize: '14px', color: '#1C3F75', fontStyle: 'italic', marginBottom: '2rem', lineHeight: 1.5 }}>Tracking my daily walking progress using the Strava MCP as a test use case.</p>
           
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: '16px', marginBottom: '2rem' }}>
             <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '2px solid #74ACDF', textAlign: 'center' }}>
@@ -135,9 +136,9 @@
             </div>
           </div>
 
-          <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem', overflowX: 'auto' }}>
-            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Daily distance trend</h2>
-            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', height: '200px', minWidth: 'min-content' }}>
+          <div style={{ background: '#F0F7FF', padding: '1.5rem', borderRadius: '12px', border: '1px solid #74ACDF', marginBottom: '2rem' }}>
+            <h2 style={{ fontSize: '18px', fontWeight: 500, color: '#1C3F75', marginBottom: '1.5rem' }}>Daily Distance Trend</h2>
+            <div style={{ display: 'flex', alignItems: 'flex-end', gap: '4px', height: '200px', minWidth: 'min-content', paddingBottom: '4px', borderBottom: '3px solid #74ACDF', overflowX: 'auto' }}>
               {data.dailyData.map((day, idx) => (
                 <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '0 0 auto', minWidth: '32px' }}>
                   <div style={{ fontSize: '9px', color: '#1C3F75', fontWeight: 600, marginBottom: '2px', height: '16px' }}>{day.distance}</div>
@@ -146,6 +147,7 @@
                 </div>
               ))}
             </div>
+            <p style={{ fontSize: '12px', color: '#74ACDF', marginTop: '8px', textAlign: 'center', fontStyle: 'italic' }}>← Scroll to see all days →</p>
           </div>
 
           <div style={{ marginBottom: '2rem' }}>
