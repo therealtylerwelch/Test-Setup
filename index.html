@@ -42,57 +42,57 @@
 
     /* ── Liquid Glass layers ── */
     .glass-shell {
-      background: rgba(255, 255, 255, 0.11);
+      background: rgba(5, 30, 65, 0.72);
       backdrop-filter: blur(48px) saturate(190%) brightness(1.06);
       -webkit-backdrop-filter: blur(48px) saturate(190%) brightness(1.06);
-      border: 1px solid rgba(255, 255, 255, 0.26);
+      border: 1px solid rgba(116, 172, 223, 0.40);
       border-radius: 32px;
       box-shadow:
-        0 16px 56px rgba(0, 0, 0, 0.22),
-        0 3px 8px  rgba(0, 0, 0, 0.10),
-        inset 0 2px 0   rgba(255, 255, 255, 0.50),
-        inset 0 -1px 0  rgba(0, 0, 0, 0.06);
+        0 16px 56px rgba(0, 0, 0, 0.38),
+        0 3px 8px  rgba(0, 0, 0, 0.20),
+        inset 0 2px 0   rgba(255, 255, 255, 0.18),
+        inset 0 -1px 0  rgba(0, 0, 0, 0.10);
     }
 
     .glass-panel {
-      background: rgba(255, 255, 255, 0.08);
+      background: rgba(10, 45, 100, 0.55);
       backdrop-filter: blur(28px) saturate(160%);
       -webkit-backdrop-filter: blur(28px) saturate(160%);
-      border: 1px solid rgba(255, 255, 255, 0.20);
+      border: 1px solid rgba(116, 172, 223, 0.35);
       border-radius: 20px;
       box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.10),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.38);
+        0 4px 20px rgba(0, 0, 0, 0.22),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.18);
     }
 
     .glass-blue {
-      background: rgba(116, 172, 223, 0.17);
+      background: rgba(10, 55, 120, 0.65);
       backdrop-filter: blur(24px) saturate(155%);
       -webkit-backdrop-filter: blur(24px) saturate(155%);
-      border: 1px solid rgba(116, 172, 223, 0.34);
+      border: 1px solid rgba(116, 172, 223, 0.50);
       border-radius: 20px;
       box-shadow:
-        0 4px 20px rgba(28, 63, 117, 0.14),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.30);
+        0 4px 20px rgba(28, 63, 117, 0.30),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.18);
     }
 
     .glass-gold {
-      background: rgba(246, 180, 14, 0.14);
+      background: rgba(80, 50, 5, 0.60);
       backdrop-filter: blur(24px) saturate(155%);
       -webkit-backdrop-filter: blur(24px) saturate(155%);
-      border: 1px solid rgba(246, 180, 14, 0.34);
+      border: 1px solid rgba(246, 180, 14, 0.55);
       border-radius: 20px;
       box-shadow:
-        0 4px 20px rgba(246, 180, 14, 0.12),
-        0 0 28px  rgba(246, 180, 14, 0.07),
-        inset 0 1.5px 0 rgba(255, 255, 255, 0.30);
+        0 4px 20px rgba(246, 180, 14, 0.20),
+        0 0 28px  rgba(246, 180, 14, 0.10),
+        inset 0 1.5px 0 rgba(255, 255, 255, 0.15);
     }
 
     .glass-dim {
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.10);
+      background: rgba(10, 35, 80, 0.45);
+      border: 1px solid rgba(116, 172, 223, 0.20);
       border-radius: 16px;
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08);
     }
 
     /* ── Chart bar ── */
@@ -170,8 +170,9 @@
     const W  = (a) => `rgba(255,255,255,${a})`;
     const GOLD       = '#F6B40E';
     const GOLD_LIGHT = '#FBDA6A';
-    const BLUE_LIGHT = 'rgba(200, 232, 255, 0.95)';
-    const BLUE_MID   = 'rgba(116, 172, 223, 0.85)';
+    const BLUE_LIGHT = '#E8F4FF';
+    const BLUE_MID   = '#74ACDF';
+    const BLUE_DIM   = 'rgba(160, 210, 255, 0.80)';
 
     const StatCard = ({ label, value, unit, variant }) => {
       const isGold = variant === 'gold';
@@ -180,13 +181,13 @@
           className={isGold ? 'glass-gold' : 'glass-blue'}
           style={{ padding: 'clamp(14px, 3vw, 22px)', textAlign: 'center', borderRadius: '18px' }}
         >
-          <div style={{ fontSize: 'clamp(10px, 2vw, 12px)', color: W(0.58), fontWeight: 400, letterSpacing: '0.3px', marginBottom: '8px', textTransform: 'uppercase' }}>
+          <div style={{ fontSize: 'clamp(10px, 2vw, 12px)', color: isGold ? 'rgba(251,218,106,0.80)' : BLUE_DIM, fontWeight: 600, letterSpacing: '0.5px', marginBottom: '8px', textTransform: 'uppercase' }}>
             {label}
           </div>
           <div style={{ fontSize: 'clamp(30px, 6vw, 40px)', fontWeight: 200, color: isGold ? GOLD_LIGHT : BLUE_LIGHT, letterSpacing: '-1.5px', lineHeight: 1, marginBottom: '6px' }}>
             {value}
           </div>
-          <div style={{ fontSize: 'clamp(10px, 1.8vw, 12px)', color: isGold ? 'rgba(203,161,53,0.75)' : BLUE_MID, fontWeight: 400 }}>
+          <div style={{ fontSize: 'clamp(10px, 1.8vw, 12px)', color: isGold ? 'rgba(251,218,106,0.90)' : BLUE_MID, fontWeight: 500 }}>
             {unit}
           </div>
         </div>
@@ -247,7 +248,7 @@
               My Recovery Steps
               <span className="beta-pill">BETA</span>
             </h1>
-            <p style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', color: W(0.50), fontWeight: 300, lineHeight: 1.55 }}>
+            <p style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', color: BLUE_MID, fontWeight: 400, lineHeight: 1.55 }}>
               Tracking daily walking progress · Powered by Strava MCP
             </p>
           </div>
@@ -262,8 +263,8 @@
           {/* ── Progress bar ── */}
           <div className="glass-panel" style={{ padding: 'clamp(14px, 3vw, 20px)', marginBottom: 'clamp(14px, 3vw, 22px)', borderRadius: '18px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '10px' }}>
-              <span style={{ fontSize: 'clamp(11px, 2vw, 13px)', color: W(0.70), fontWeight: 400, textTransform: 'uppercase', letterSpacing: '0.3px' }}>100-Mile Goal</span>
-              <span style={{ fontSize: 'clamp(11px, 2vw, 13px)', color: GOLD_LIGHT, fontWeight: 500 }}>{pct.toFixed(1)}%</span>
+              <span style={{ fontSize: 'clamp(11px, 2vw, 13px)', color: BLUE_LIGHT, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>100-Mile Goal</span>
+              <span style={{ fontSize: 'clamp(11px, 2vw, 13px)', color: GOLD_LIGHT, fontWeight: 600 }}>{pct.toFixed(1)}%</span>
             </div>
             <div style={{ height: '8px', borderRadius: '100px', background: 'rgba(255,255,255,0.10)', overflow: 'hidden', border: '1px solid rgba(255,255,255,0.12)' }}>
               <div style={{
@@ -279,21 +280,21 @@
 
           {/* ── Chart ── */}
           <div className="glass-panel" style={{ padding: 'clamp(14px, 3vw, 20px)', marginBottom: 'clamp(14px, 3vw, 22px)', borderRadius: '18px' }}>
-            <h2 style={{ fontSize: 'clamp(12px, 2.5vw, 15px)', fontWeight: 500, color: W(0.80), marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+            <h2 style={{ fontSize: 'clamp(12px, 2.5vw, 15px)', fontWeight: 600, color: BLUE_LIGHT, marginBottom: '16px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Daily Distance Trend
             </h2>
             <div className="chart-scroll">
               <div style={{ display: 'flex', alignItems: 'flex-end', gap: '6px', height: '160px', minWidth: 'min-content' }}>
                 {data.dailyData.map((day, idx) => (
                   <div key={idx} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', flex: '0 0 auto', minWidth: '34px' }}>
-                    <div style={{ fontSize: '8px', color: W(0.70), fontWeight: 600, marginBottom: '3px', height: '12px', textAlign: 'center' }}>
+                    <div style={{ fontSize: '8px', color: BLUE_LIGHT, fontWeight: 700, marginBottom: '3px', height: '12px', textAlign: 'center' }}>
                       {day.distance}
                     </div>
                     <div
                       className="bar"
                       style={{ width: '18px', height: `${(day.distance / maxDistance) * 120}px`, minHeight: '6px' }}
                     />
-                    <div style={{ fontSize: '8px', color: W(0.45), marginTop: '5px', fontWeight: 400, textAlign: 'center' }}>
+                    <div style={{ fontSize: '8px', color: BLUE_DIM, marginTop: '5px', fontWeight: 500, textAlign: 'center' }}>
                       {day.date.split(' ')[1]}
                     </div>
                   </div>
@@ -305,7 +306,7 @@
           {/* ── Badges ── */}
           <div style={{ marginBottom: 'clamp(14px, 3vw, 22px)' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 'clamp(12px, 2vw, 16px)' }}>
-              <h2 style={{ fontSize: 'clamp(12px, 2.5vw, 15px)', fontWeight: 500, color: W(0.80), textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+              <h2 style={{ fontSize: 'clamp(12px, 2.5vw, 15px)', fontWeight: 600, color: BLUE_LIGHT, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
                 Badges Earned
               </h2>
               <span style={{
@@ -326,14 +327,14 @@
                     padding: 'clamp(10px, 2.5vw, 16px)',
                     borderRadius: '16px',
                     textAlign: 'center',
-                    opacity: badge.unlocked ? 1 : 0.40,
+                    opacity: badge.unlocked ? 1 : 0.65,
                   }}
                 >
                   <div style={{ fontSize: 'clamp(22px, 4vw, 30px)', marginBottom: '6px', lineHeight: 1 }}>{badge.icon}</div>
-                  <div style={{ fontSize: 'clamp(10px, 1.8vw, 12px)', fontWeight: 600, color: badge.unlocked ? GOLD_LIGHT : W(0.55), marginBottom: '4px', lineHeight: 1.2 }}>
+                  <div style={{ fontSize: 'clamp(10px, 1.8vw, 12px)', fontWeight: 700, color: badge.unlocked ? GOLD_LIGHT : BLUE_DIM, marginBottom: '4px', lineHeight: 1.2 }}>
                     {badge.name}
                   </div>
-                  <div style={{ fontSize: '10px', color: W(0.42), lineHeight: 1.35 }}>{badge.description}</div>
+                  <div style={{ fontSize: '10px', color: badge.unlocked ? 'rgba(251,218,106,0.75)' : BLUE_DIM, lineHeight: 1.35 }}>{badge.description}</div>
                   {badge.unlocked && (
                     <div style={{ marginTop: '7px', fontSize: '10px', color: GOLD, fontWeight: 600, letterSpacing: '0.3px' }}>✓ Unlocked</div>
                   )}
@@ -344,10 +345,10 @@
 
           {/* ── Insights ── */}
           <div className="glass-blue" style={{ padding: 'clamp(14px, 3vw, 22px)', borderRadius: '20px' }}>
-            <h3 style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', fontWeight: 500, color: W(0.80), marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.4px' }}>
+            <h3 style={{ fontSize: 'clamp(12px, 2.5vw, 14px)', fontWeight: 600, color: BLUE_LIGHT, marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
               Walking Insights
             </h3>
-            <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: W(0.62), lineHeight: 1.75, fontWeight: 300 }}>
+            <p style={{ fontSize: 'clamp(12px, 2vw, 14px)', color: BLUE_LIGHT, lineHeight: 1.75, fontWeight: 400 }}>
               Great work on your walking routine! You've completed 17 walks totaling 12.4 miles since June 1st. Your longest streak was 5 consecutive days (Jun 7–11), and you've already unlocked 3 badges including the "Twice Daily" achievement. Keep building consistency to work toward your 14-day streak and 100-mile milestone!
             </p>
           </div>
